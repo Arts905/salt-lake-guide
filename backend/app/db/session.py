@@ -12,11 +12,11 @@ is_vercel = os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME
 
 if is_vercel:
     # In Vercel, use in-memory SQLite for maximum safety during startup
-    # Or /tmp/data.db if persistence within same lambda instance is desired
-    # But often /tmp is cleaner.
-    DEFAULT_SQLITE_PATH = "/tmp/data.db"
+    # We strictly force in-memory to avoid ANY file permission issues
+    DEFAULT_SQLITE_PATH = ":memory:"
+    DATABASE_URL = "sqlite:///:memory:"
     
-    # Ensure /tmp exists (it should)
+    # Ensure /tmp exists (it should) - keeping this just in case other logic needs it
     if not os.path.exists("/tmp"):
         try:
             os.makedirs("/tmp")
@@ -26,8 +26,11 @@ if is_vercel:
 else:
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     DEFAULT_SQLITE_PATH = os.path.join(BASE_DIR, "data.db").replace("\\", "/")
+    DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_SQLITE_PATH}")
 
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_SQLITE_PATH}")
+# Only set DATABASE_URL if not already set (for Vercel logic above)
+if not 'DATABASE_URL' in locals():
+     DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_SQLITE_PATH}")
 
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
