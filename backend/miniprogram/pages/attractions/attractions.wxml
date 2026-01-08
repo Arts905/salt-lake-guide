@@ -1,0 +1,30 @@
+<view class="page {{themeClass}}">
+  <view class="header">
+    <view class="title">推荐景点</view>
+    <view class="sub">从后台更新的封面将展示在此</view>
+  </view>
+
+  <!-- 第一层：加载中 / 非加载 -->
+  <block wx:if="{{loading}}">
+    <view class="grid">
+      <view class="card skeleton" wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
+        <view class="skeleton-img"></view>
+        <view class="skeleton-line w-80"></view>
+        <view class="skeleton-line w-60"></view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <!-- 第二层：有数据 / 无数据 -->
+    <view class="grid" wx:if="{{items.length > 0}}">
+      <navigator class="card" wx:for="{{items}}" wx:key="id" url="/pages/lake-detail/lake-detail?id={{item.id}}">
+        <image class="cover" src="{{item._cover}}" mode="aspectFill" data-index="{{index}}" binderror="onImageError"></image>
+        <view class="name">{{item.name}}</view>
+        <view class="meta">{{item.category}} · ⭐ {{item.rating}}</view>
+      </navigator>
+    </view>
+
+    <view class="empty" wx:else>暂无景点数据</view>
+  </block>
+</view>

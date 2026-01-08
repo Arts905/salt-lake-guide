@@ -1,0 +1,42 @@
+.page { padding: 16rpx; background: linear-gradient(180deg, #ffffff 0%, #f7f7fb 100%); }
+.header { padding: 16rpx; }
+.title { font-size: 34rpx; font-weight: 700; color: #111827; }
+.sub { font-size: 26rpx; color: #6b7280; margin-top: 6rpx; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; padding: 12rpx; }
+.card { background: #fff; border-radius: 16rpx; overflow: hidden; box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.06); }
+.cover { width: 100%; height: 280rpx; background: #f3f4f6; }
+.name { padding: 12rpx; font-weight: 600; color: #111827; }
+.meta { padding: 0 12rpx 12rpx; color: #6b7280; font-size: 24rpx; }
+
+/* 骨架屏 */
+.skeleton { padding: 12rpx; }
+.skeleton-img { width: 100%; height: 280rpx; background: #e5e7eb; border-radius: 12rpx; }
+.skeleton-line { position: relative; height: 28rpx; background: #e5e7eb; border-radius: 10rpx; margin-top: 10rpx; overflow: hidden; }
+.skeleton-line::after { content: ""; position: absolute; left: -40%; top: 0; height: 100%; width: 40%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.6), rgba(255,255,255,0)); animation: shimmer 1.2s infinite; }
+.w-80 { width: 80%; }
+.w-60 { width: 60%; }
+@keyframes shimmer { 0% { left: -40%; } 100% { left: 100%; } }
+
+.empty { color: #9ca3af; text-align: center; margin-top: 40rpx; }
+
+/* 主题：暗色模式背景与毛玻璃卡片 */
+.page.theme-dark {
+  background: radial-gradient(1200rpx 600rpx at 30% 10%, #1b2330 0%, #0d1117 60%, #0a0d12 100%);
+  color: #e9edf3;
+}
+.page.theme-dark .title { color: #e9edf3; }
+.page.theme-dark .sub { color: #c7cbd2; }
+.page.theme-dark .card { backdrop-filter: blur(10rpx); background: rgba(28,33,43,0.75); border: 1rpx solid rgba(255,255,255,0.08); box-shadow: 0 24rpx 60rpx rgba(0,0,0,0.35); }
+.page.theme-dark .name { color: #e9edf3; }
+.page.theme-dark .meta { color: #b8bdc6; }
+
+/* 主题：浅色模式背景与毛玻璃卡片 */
+.page.theme-light {
+  background: radial-gradient(1200rpx 600rpx at 30% 10%, #f0f5ff 0%, #e9efff 50%, #f7f9fc 100%);
+  color: #1c1c1e;
+}
+.page.theme-light .title { color: #1c1c1e; }
+.page.theme-light .sub { color: #64748b; }
+.page.theme-light .card { backdrop-filter: blur(10rpx); background: rgba(255,255,255,0.72); border: 1rpx solid rgba(0,0,0,0.08); box-shadow: 0 24rpx 60rpx rgba(0,0,0,0.15); }
+.page.theme-light .name { color: #1c1c1e; }
+.page.theme-light .meta { color: #6b7280; }

@@ -1,0 +1,11 @@
+<view class="reminder-page {{themeClass}}">
+  <view class="card">
+    <view class="icon-wrapper">📝</view>
+    <view class="title">定制你的专属推荐</view>
+    <view class="desc">花几秒钟告诉我们你的旅行偏好，让我们为你发现更合心意的盐湖秘境。</view>
+    <view class="actions">
+      <button class="btn primary" bindtap="goSurvey">立即开始</button>
+      <button class="btn secondary" bindtap="dismiss">以后再说</button>
+    </view>
+  </view>
+</view>

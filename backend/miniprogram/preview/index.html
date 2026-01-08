@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>首页推荐预览</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}
+  .page{min-height:100vh;padding:24px;background: radial-gradient(1200px 600px at 30% 10%, #f0f5ff 0%, #e9efff 50%, #f7f9fc 100%);}
+  .section-title{font-size:22px;font-weight:700;color:#1c1c1e;margin:12px 8px 20px;}
+  .lake-list{display:flex;flex-direction:column;gap:16px;max-width:720px;margin:0 auto;}
+  .lake-card{position:relative;height:180px;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.1);backdrop-filter:blur(8px);background:rgba(255,255,255,0.72);border:1px solid rgba(0,0,0,0.06);}
+  .lake-cover{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(1.05);} 
+  .lake-overlay{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 100%);color:#fff;}
+  .lake-name{font-size:18px;font-weight:700;}
+  .lake-meta{margin-top:4px;font-size:14px;opacity:0.9;}
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="section-title">为你推荐景点（预览）</div>
+    <div class="lake-list" id="list"></div>
+  </div>
+<script>
+  const sample = [
+    { name: '运城盐湖·主景区', country: '山西·运城', rating: 4.8, distance: '市区内', cover: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80' },
+    { name: '运城盐湖·五彩盐湖', country: '山西·运城', rating: 4.7, distance: '2.5 km', cover: 'https://images.unsplash.com/photo-1529927066849-6f50a8fd5a0a?auto=format&fit=crop&w=1200&q=80' },
+    { name: '盐湖博物馆', country: '山西·运城', rating: 4.6, distance: '1.8 km', cover: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' }
+  ];
+  const el = document.getElementById('list');
+  sample.forEach(item => {
+    const card = document.createElement('div'); card.className='lake-card';
+    const cover = document.createElement('div'); cover.className='lake-cover'; cover.style.backgroundImage=`url(${item.cover})`;
+    const overlay = document.createElement('div'); overlay.className='lake-overlay';
+    overlay.innerHTML = `<div class='lake-name'>${item.name}</div><div class='lake-meta'>${item.country} · ${item.rating}★ · ${item.distance}</div>`;
+    card.appendChild(cover); card.appendChild(overlay); el.appendChild(card);
+  });
+</script>
+</body>
+</html>

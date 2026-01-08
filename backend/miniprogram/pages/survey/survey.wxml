@@ -1,0 +1,37 @@
+<view class="survey-page {{themeClass}}">
+  <view class="card">
+    <view class="icon-wrapper">🎯</view>
+    <view class="title">偏好设置</view>
+    <view class="desc">选择你的旅行偏好，我们会为你提供更合心意的推荐。</view>
+
+    <view class="form">
+      <checkbox-group bindchange="onChange">
+        <label class="option">
+          <checkbox value="quiet"/> 人少的景点
+        </label>
+        <label class="option">
+          <checkbox value="photo"/> 拍照出片
+        </label>
+        <label class="option">
+          <checkbox value="history"/> 了解历史
+        </label>
+        <label class="option">
+          <checkbox value="nature"/> 自然风光
+        </label>
+        <label class="option">
+          <checkbox value="bird"/> 看鸟
+        </label>
+        <label class="option">
+          <checkbox value="relax"/> 休闲
+        </label>
+        <label class="option">
+          <checkbox value="fitness"/> 健身
+        </label>
+      </checkbox-group>
+    </view>
+
+    <view class="actions">
+      <button class="btn primary" bindtap="submitPreferences">提交偏好</button>
+    </view>
+  </view>
+</view>

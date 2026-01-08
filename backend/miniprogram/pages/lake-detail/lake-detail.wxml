@@ -1,0 +1,21 @@
+<view class="page {{themeClass}}">
+  <view class="hero">
+    <image class="hero-img" src="{{lake.cover}}" mode="aspectFill" binderror="onImageError" />
+    <view class="hero-info">
+      <view class="name">{{lake.name}}</view>
+      <view class="meta">{{lake.country}} · {{lake.rating}}★</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="sec-title">简介</view>
+    <view class="desc">{{lake.desc}}</view>
+  </view>
+
+  <view class="section">
+    <view class="sec-title">导航</view>
+    <button class="btn-nav" bindtap="navigate">打开地图导航</button>
+    <!-- 新增：跳转高德AR导航 -->
+    <button class="btn-nav" bindtap="navigateAMap">跳转高德AR导航</button>
+  </view>
+</view>

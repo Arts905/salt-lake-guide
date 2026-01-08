@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/realtime/realtime",
+    "pages/lake-detail/lake-detail",
+    "pages/attractions/attractions",
+    "pages/survey/survey",
+    "pages/survey-reminder/survey-reminder"
+  ],
+  "window": {
+    "navigationBarTitleText": "盐湖预测",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "position": "bottom",
+    "borderStyle": "black",
+    "color": "#7A7E83",
+    "selectedColor": "#0A84FF",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/realtime/realtime", "text": "实时指数" }
+    ]
+  }
+}

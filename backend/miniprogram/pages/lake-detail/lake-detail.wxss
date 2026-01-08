@@ -1,0 +1,28 @@
+.page { background: #F2F2F7; min-height: 100vh; }
+.hero { position: relative; height: 320rpx; }
+.hero-img { width: 100%; height: 100%; }
+.hero-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 22rpx; color: #fff; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); }
+.name { font-size: 34rpx; font-weight: 700; }
+.meta { margin-top: 6rpx; font-size: 24rpx; opacity: 0.9; }
+.section { padding: 24rpx; }
+.sec-title { font-size: 30rpx; font-weight: 700; color: #111; margin-bottom: 12rpx; }
+.desc { font-size: 26rpx; color: #333; line-height: 1.6; }
+.btn-nav { margin-top: 10rpx; background: #0A84FF; color: #fff; border-radius: 20rpx; }
+
+/* 主题：暗色模式背景与卡片（渐变+毛玻璃） */
+.page.theme-dark {
+  background: radial-gradient(1200rpx 600rpx at 30% 10%, #1b2330 0%, #0d1117 60%, #0a0d12 100%);
+  color: #e9edf3;
+}
+.page.theme-dark .section { backdrop-filter: blur(10rpx); background: rgba(28,33,43,0.75); border: 1rpx solid rgba(255,255,255,0.08); border-radius: 24rpx; margin: 24rpx; padding: 24rpx; box-shadow: 0 24rpx 60rpx rgba(0,0,0,0.35); }
+.page.theme-dark .sec-title { color: #e9edf3; }
+.page.theme-dark .desc { color: #c7cbd2; }
+
+/* 主题：浅色模式背景与卡片（渐变+毛玻璃） */
+.page.theme-light {
+  background: radial-gradient(1200rpx 600rpx at 30% 10%, #f0f5ff 0%, #e9efff 50%, #f7f9fc 100%);
+  color: #1c1c1e;
+}
+.page.theme-light .section { backdrop-filter: blur(10rpx); background: rgba(255,255,255,0.72); border: 1rpx solid rgba(0,0,0,0.08); border-radius: 24rpx; margin: 24rpx; padding: 24rpx; box-shadow: 0 24rpx 60rpx rgba(0,0,0,0.15); }
+.page.theme-light .sec-title { color: #1c1c1e; }
+.page.theme-light .desc { color: #334155; }

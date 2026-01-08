@@ -1,0 +1,94 @@
+<view class="page {{themeClass}}">
+  <view class="picker-wrap">
+    <picker mode="selector" range="{{lakes}}" bindchange="onSelect">
+      <view class="card">选择盐湖：{{lakes[selected]}}</view>
+    </picker>
+  </view>
+
+  <!-- 骨架屏：加载中展示 -->
+  <view wx:if="{{loading}}" class="hero skeleton-hero">
+    <view class="skeleton-img"></view>
+    <view class="floating-card">
+      <view class="skeleton-line w-40"></view>
+      <view class="skeleton-line w-60"></view>
+      <view class="skeleton-line w-80"></view>
+    </view>
+  </view>
+
+  <!-- 正常内容：加载完成展示 -->
+  <view wx:else class="hero">
+    <block wx:if="{{image_url}}">
+      <image class="hero-img" src="{{image_url}}" mode="aspectFill" />
+    </block>
+    <block wx:else>
+      <view class="hero-placeholder">暂无实时图片</view>
+    </block>
+    <view class="floating-card">
+      <view class="fc-row">
+        <view class="fc-left">
+          <view class="fc-score">{{score}}</view>
+          <view class="fc-sub">今日出片指数：{{score}}%</view>
+        </view>
+        <canvas class="score-pie" canvas-id="scorePie"></canvas>
+      </view>
+      <view class="fc-meta">{{lake_name}} · {{captured_at}}</view>
+      <view class="fc-reason">{{reason}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="factor">
+      <view class="factor-header">
+        <view class="title">饱和度</view>
+        <view class="value">{{sat_pct}}%</view>
+      </view>
+      <view class="bar">
+        <view class="bar-inner bar--sat" style="width: {{sat_pct}}%"></view>
+      </view>
+    </view>
+    <view class="factor">
+      <view class="factor-header">
+        <view class="title">红色占比</view>
+        <view class="value">{{red_pct}}%</view>
+      </view>
+      <view class="bar">
+        <view class="bar-inner bar--red" style="width: {{red_pct}}%"></view>
+      </view>
+    </view>
+    <view class="factor">
+      <view class="factor-header">
+        <view class="title">粉色占比</view>
+        <view class="value">{{pink_pct}}%</view>
+      </view>
+      <view class="bar">
+        <view class="bar-inner bar--pink" style="width: {{pink_pct}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 天气简报 -->
+  <view class="section weather">
+    <view class="title">当前天气（运城盐湖）</view>
+    <view wx:if="{{weather_now}}" class="weather-now">
+      <view class="row">温度：{{weather_now.temp}}°C</view>
+      <view class="row">云量：{{weather_now.cloud}}%</view>
+      <view class="row">风速：{{weather_now.windSpeed}} m/s</view>
+      <view class="row">湿度：{{weather_now.humidity}}%</view>
+      <view class="row">UV：{{weather_now.uvIndex}}</view>
+      <view class="row">降水：{{weather_now.precip}} mm</view>
+      <view class="row">能见度：{{weather_now.visibility}} km</view>
+    </view>
+    <view wx:else class="weather-now">暂无数据</view>
+
+    <view class="hour-list" wx:if="{{weather_next2h.length > 0}}">
+      <view class="hour-card" wx:for="{{weather_next2h}}" wx:key="time">
+        <view class="time">{{item.time}}</view>
+        <view class="meta">{{item.temp}}°C · 云{{item.cloud}}% · 风{{item.windSpeed}}</view>
+      </view>
+    </view>
+    <view wx:else class="hour-empty">暂无预测</view>
+  </view>
+
+  <button class="btn" bindtap="fetchRealtime">刷新实时</button>
+  <button class="btn" bindtap="goAttractions">查看景点</button>
+</view>

@@ -1,0 +1,49 @@
+<view class="page {{themeClass}}">
+  <view class="hero">
+    <view class="hero-title">Let's Discover</view>
+    <view class="hero-sub">探索盐湖与周边的精彩</view>
+    <button class="hero-cta" bindtap="openSurvey">开始探索</button>
+  </view>
+
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="搜索目的地或景点" value="{{searchQuery}}" bindinput="onSearchInput" bindconfirm="onSearchConfirm" confirm-type="search" />
+  </view>
+
+  
+  <!-- 热门湖泊推荐 -->
+  <view class="section-title">热门湖泊推荐</view>
+  <view wx:if="{{hotLakes.length > 0}}">
+    <view class="lake-list">
+      <view class="lake-card" wx:for="{{hotLakes}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
+        <image class="lake-cover" src="{{item.cover}}" mode="aspectFill" binderror="onImageError" data-index="{{index}}" />
+        <view class="lake-overlay">
+          <view class="lake-name">{{item.name}}</view>
+          <view class="lake-meta">{{item.country}} · {{item.rating}}★ · {{item.distance}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日预测（保留原有功能） -->
+  <view class="section-title section-title--sub">今日观测条件预测</view>
+  <view wx:if="{{list.length > 0}}">
+    <view class="card {{item.cardClass}}" wx:for="{{list}}" wx:key="lake_id">
+      <view class="card__header">
+        <view class="lake">{{item.lake_name}}</view>
+        <view class="time">☀️ 最佳时间：{{item.best_time.start}} ~ {{item.best_time.end}}</view>
+      </view>
+      <view class="card__body">
+        <view class="score">{{item.score}}</view>
+        <view class="reason">{{item.reason}}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="empty">
+    <view class="empty-title">暂无预测数据</view>
+    <view class="empty-desc">请点击下方按钮刷新，或检查后端服务是否运行</view>
+  </view>
+
+  <button class="btn" bindtap="refresh">刷新预测</button>
+  <button class="btn" style="margin-top: 16rpx;" bindtap="openSurvey">偏好调研</button>
+</view>
