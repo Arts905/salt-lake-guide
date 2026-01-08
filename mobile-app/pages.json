@@ -1,0 +1,62 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "盐湖预测"
+      }
+    },
+    {
+      "path": "pages/realtime/realtime",
+      "style": {
+        "navigationBarTitleText": "实时指数"
+      }
+    },
+    {
+      "path": "pages/lake-detail/lake-detail",
+      "style": {
+        "navigationBarTitleText": "盐湖详情"
+      }
+    },
+    {
+      "path": "pages/attractions/attractions",
+      "style": {
+        "navigationBarTitleText": "推荐景点"
+      }
+    },
+    {
+      "path": "pages/survey/survey",
+      "style": {
+        "navigationBarTitleText": "偏好调研"
+      }
+    },
+    {
+      "path": "pages/survey-reminder/survey-reminder",
+      "style": {
+        "navigationBarTitleText": "完善偏好"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "盐湖检测",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F2F2F7"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#0A84FF",
+    "borderStyle": "black",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/realtime/realtime",
+        "text": "实时指数"
+      }
+    ]
+  }
+}
