@@ -12,7 +12,7 @@ if backend_dir not in sys.path:
 # 2. Try to import the main app with robust fallback
 try:
     from app.main import app
-except Exception as e:
+except BaseException as e:  # Catch SystemExit, KeyboardInterrupt, and everything else
     # 3. If import fails, create a dummy app to display the error
     print(f"CRITICAL ERROR during startup import: {e}")
     import traceback
