@@ -3,15 +3,23 @@ import os
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-# 1. Ensure backend directory is in sys.path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-backend_dir = os.path.dirname(current_dir)
-if backend_dir not in sys.path:
-    sys.path.append(backend_dir)
+# Debug: Print sys.path to logs
+print(f"DEBUG: sys.path is {sys.path}")
 
 # 2. Try to import the main app with robust fallback
 try:
-    from app.main import app
+    # Explicitly add the parent directory to path if needed, but let's try standard import first
+    # If standard import fails, we might need to adjust path
+    try:
+        from app.main import app
+    except ImportError:
+        # Fallback for Vercel's specific structure
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        backend_dir = os.path.dirname(current_dir)
+        if backend_dir not in sys.path:
+            sys.path.insert(0, backend_dir)
+        from app.main import app
+
 except BaseException as e:  # Catch SystemExit, KeyboardInterrupt, and everything else
     # 3. If import fails, create a dummy app to display the error
     print(f"CRITICAL ERROR during startup import: {e}")
@@ -28,7 +36,8 @@ except BaseException as e:  # Catch SystemExit, KeyboardInterrupt, and everythin
             content={
                 "error": "Application Failed to Start",
                 "message": str(e),
-                "traceback": trace_str.split("\n")
+                "traceback": trace_str.split("\n"),
+                "sys_path": sys.path
             }
         )
 
