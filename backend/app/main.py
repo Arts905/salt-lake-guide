@@ -61,8 +61,13 @@ def on_startup():
         start_scheduler()
     
     # 初始化数据 (可选)
+    # 在 Vercel 上，每次冷启动都是空的数据库，所以需要初始化
+    # 但要注意并发启动时不要冲突（SQLite会锁）
     print("Startup: Initing Data...")
-    init_sample_attractions()
+    try:
+        init_sample_attractions()
+    except Exception as e:
+        print(f"Startup: Init Data Error (ignored): {e}")
     print("Startup: Done")
 
 # 注册路由

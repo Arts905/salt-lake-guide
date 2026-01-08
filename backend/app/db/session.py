@@ -20,8 +20,8 @@ if is_vercel:
     if not os.path.exists("/tmp"):
         try:
             os.makedirs("/tmp")
-        except:
-            pass
+        except Exception as e:
+            print(f"Warning: Could not create /tmp directory: {e}")
             
 else:
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
