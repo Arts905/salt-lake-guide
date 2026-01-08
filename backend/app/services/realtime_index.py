@@ -38,14 +38,17 @@ def compute_and_store_realtime_index(lake_id: int) -> RealtimeIndex:
 
     # Only try real analysis if OpenCV is available
     if cv2 and img_path and os.path.exists(img_path):
-        from app.services.image_analysis import compute_color_features, score_from_features, build_reason_from_features
-        img = cv2.imread(img_path)
-        feats = compute_color_features(img)
-        img_score = score_from_features(feats)
-        reason_img = build_reason_from_features(feats)
-        score = int(img_score)
-        reason = reason_img
-        factors["image_analysis"] = feats
+        try:
+            from app.services.image_analysis import compute_color_features, score_from_features, build_reason_from_features
+            img = cv2.imread(img_path)
+            feats = compute_color_features(img)
+            img_score = score_from_features(feats)
+            reason_img = build_reason_from_features(feats)
+            score = int(img_score)
+            reason = reason_img
+            factors["image_analysis"] = feats
+        except Exception as e:
+            print(f"Image analysis failed (fallback to mock): {e}")
     
     # ... (Rest of logic simplified for brevity in this fix, can be re-expanded) ...
     # For now, just return the result to unblock deployment
