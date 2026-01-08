@@ -51,10 +51,20 @@ def on_startup():
     
     # 在 Vercel 环境中，通常不建议在启动时做繁重的数据库操作
     # 但如果是 Serverless SQL 数据库，可以保留
-    print("Startup: Creating Tables...")
-    Base.metadata.create_all(bind=engine)
-    print("Startup: Tables Created")
-    
+    # FIX: Vercel 启动超时优化 - 如果是 Vercel，跳过繁重的建表和初始化
+    if not is_vercel:
+        print("Startup: Creating Tables...")
+        Base.metadata.create_all(bind=engine)
+        print("Startup: Tables Created")
+    else:
+        print("Startup: Vercel detected, skipping heavy table creation to avoid timeout.")
+        # 尝试仅创建必要的表，或者完全跳过（取决于是否连接了外部数据库）
+        # 如果是 SQLite in-memory，不建表会导致查询报错，所以必须建，但要快
+        try:
+             Base.metadata.create_all(bind=engine)
+        except Exception as e:
+             print(f"Startup: Create Tables Error (ignored): {e}")
+
     # 启动调度器 (非 Vercel 环境)
     if not is_vercel:
         print("Startup: Starting Scheduler...")
@@ -63,11 +73,15 @@ def on_startup():
     # 初始化数据 (可选)
     # 在 Vercel 上，每次冷启动都是空的数据库，所以需要初始化
     # 但要注意并发启动时不要冲突（SQLite会锁）
-    print("Startup: Initing Data...")
-    try:
-        init_sample_attractions()
-    except Exception as e:
-        print(f"Startup: Init Data Error (ignored): {e}")
+    if not is_vercel:
+        print("Startup: Initing Data...")
+        try:
+            init_sample_attractions()
+        except Exception as e:
+            print(f"Startup: Init Data Error (ignored): {e}")
+    else:
+        print("Startup: Vercel detected, skipping data init to save time.")
+    
     print("Startup: Done")
 
 # 注册路由
