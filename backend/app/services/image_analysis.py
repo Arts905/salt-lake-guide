@@ -1,5 +1,10 @@
-import numpy as np
+import logging
 from typing import Dict
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 try:
     import cv2
@@ -10,7 +15,7 @@ except ImportError:
 # 重新定义：分区域分析（湖面+天空），并侧重湖面颜色
 # 保持函数名与接口不变，向下兼容（返回中仍包含旧键，但语义改为湖面区域）
 
-def compute_color_features(img_bgr: np.ndarray) -> Dict[str, float]:
+def compute_color_features(img_bgr) -> Dict[str, float]:
     """
     提取色彩特征（分区域）：
     - 湖面区域（底部 65%）：饱和度、红/粉占比、粉色鲜艳度

@@ -37,7 +37,7 @@ def read_root():
 from app.db.session import engine, Base
 from app.db.init_data import init_sample_attractions
 from app.db.models_poi import PointOfInterest
-from app.tasks.scheduler import start_scheduler
+# from app.tasks.scheduler import start_scheduler  # Moved inside function to avoid import error on Vercel
 from app.api.routes import attractions, recommend, weather, predictions, community, user, subscriptions, sensors
 
 # 启动时初始化
@@ -68,7 +68,11 @@ def on_startup():
     # 启动调度器 (非 Vercel 环境)
     if not is_vercel:
         print("Startup: Starting Scheduler...")
-        start_scheduler()
+        try:
+            from app.tasks.scheduler import start_scheduler
+            start_scheduler()
+        except ImportError:
+            print("Startup: Scheduler not available (missing dependencies)")
     
     # 初始化数据 (可选)
     # 在 Vercel 上，每次冷启动都是空的数据库，所以需要初始化
