@@ -4,9 +4,9 @@ pydantic
 SQLAlchemy
 requests
 python-dotenv
-apscheduler
-# opencv-python-headless  <-- REMOVED: Too large for Vercel (approx 100MB+)
-numpy
-# psycopg2-binary <-- REMOVED: Not needed if using SQLite or external HTTP-based DB
-# pytest <-- REMOVED: Dev dependency, not needed in prod
-oss2
+# apscheduler  <-- Disabled for Vercel stability
+# opencv-python-headless
+# numpy
+# psycopg2-binary
+# pytest
+# oss2  <-- Disabled for Vercel stability
